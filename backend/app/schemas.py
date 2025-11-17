@@ -1,6 +1,6 @@
 from sqlmodel import SQLModel
 from typing import Optional
-from datetime import datetime, timezone
+from datetime import datetime
 
 class NoteBase(SQLModel):
     title: str
