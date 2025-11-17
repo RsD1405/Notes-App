@@ -3,7 +3,8 @@ uvicorn
 pydantic
 pydantic-settings
 sqlmodel
-psycopg2-binary
+psycopg2
 asyncpg
 alembic
 python-dotenv
+pytest
