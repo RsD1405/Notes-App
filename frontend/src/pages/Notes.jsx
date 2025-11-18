@@ -7,7 +7,7 @@ function Notes() {
 
     async function getNotes() {
         const response = await fetch(`${BASE_URL}/notes/`);
-        if(!response) {
+        if(!response.ok) {
             console.error("Error fetching notes");
             setLoading(false);
             return;
@@ -25,9 +25,24 @@ function Notes() {
         return <p>Loading...</p>
     
     return (
-        <>
-        <h2>Notes</h2>
-        </>
-    )
+        <div id="notesList">
+        <h1>Notes</h1>
+            {
+                notes.map((note) => (
+                    <div id="noteContainer" key={note.id}>
+                        <h3>{note.title}</h3>
+                        <p>{note.content}</p>
+                        <small>
+                            Created: {new Date(note.created_at).toLocaleString()}
+                            <br/>
+                            Updated: {new Date(note.updated_at).toLocaleString()}
+                        </small>
+                    </div>
+                ))
+            }
+        </div>
+    );
 
 }
+
+export default Notes;
