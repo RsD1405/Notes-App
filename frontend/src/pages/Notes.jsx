@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Notes.css";
+import NoteModal from "../components/NoteModal";
 
 const testDb = [
     {
@@ -12,47 +13,47 @@ const testDb = [
     {
         id: "2",
         title: "dfgdfg",
-        content: "sdgasdgasdfgasfdghhhhhhhhsdfghsdgfhdghsdghzdgfhzdgjzadghDGhdgh",
+        content: "sdgasdgasdfgasfdghhhhhhhhsdfghsdgfhdghsdghzfadgfhadfhhadfhadhdfDfDfDFhDgjsfgjdtyjdyhjdyjsyjsyjjdgfhzdgjzadghDGhdgh",
         created_at: "test",
         updated_at: "test"
     },
     {
-        id: "2",
+        id: "3",
         title: "dfgdfg",
         content: "sdgasdgasdfgasfdg",
         created_at: "test",
         updated_at: "test"
     },
     {
-        id: "2",
+        id: "4",
         title: "dfgdfg",
         content: "sdgasdgasdfgasfdg",
         created_at: "test",
         updated_at: "test"
     },
     {
-        id: "2",
+        id: "5",
         title: "dfgdfg",
         content: "sdgasdgasdfgasfdg",
         created_at: "test",
         updated_at: "test"
     },
     {
-        id: "2",
+        id: "6",
         title: "dfgdfg",
         content: "sdgasdgasdfgasfdg",
         created_at: "test",
         updated_at: "test"
     },
     {
-        id: "2",
+        id: "7",
         title: "dfgdfg",
         content: "sdgasdgasdfgasfdg",
         created_at: "test",
         updated_at: "test"
     },
     {
-        id: "2",
+        id: "8",
         title: "dfgdfg",
         content: "sdgasdgasdfgasfdg",
         created_at: "test",
@@ -62,6 +63,7 @@ const testDb = [
 
 function Notes() {
     const [notes, setNotes] = useState([]);
+    const [selectedNote, setSelectedNote] = useState(null);
 
     function truncate(text, maxLength) {
         if (!text) return '';
@@ -79,7 +81,10 @@ function Notes() {
             </header>
             <div id="notesGridDiv">
                 {notes.map((note) => (
-                    <div key={note.id} className="notesCard">
+                    <div
+                        key={note.id}
+                        className="notesCard"
+                        onClick={() => setSelectedNote(note)}>
                         <h3>{truncate(note.title, 10)}</h3>
                         <p>{truncate(note.content, 20)}</p>
                         <small>
@@ -90,6 +95,11 @@ function Notes() {
                     </div>
                 ))}
             </div>
+            {
+                selectedNote && (
+                    <NoteModal note={selectedNote} onClose={() => setSelectedNote(null)} />
+                )
+            }
         </div>
     );
 }
