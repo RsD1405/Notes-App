@@ -26,8 +26,8 @@ function Notes() {
             return;
         }
         const data = await response.json();
-        const sortedNotes = [data].sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
-        setNotes(data);
+        const sortedNotes = [...data].sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+        setNotes(sortedNotes);
         setLoading(false);
     }
 
