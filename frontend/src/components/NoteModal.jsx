@@ -16,13 +16,11 @@ const NoteModal = ({ note, onClose, onUpdate, onDelete }) => {
     const trimmedTitle = title.trim();
     const trimmedContent = content.trim();
 
-    // ❌ Prevent empty fields
     if (!trimmedTitle || !trimmedContent) {
       setError("Title and content cannot be empty.");
       return;
     }
 
-    // ❌ Prevent PATCH if unchanged
     if (
       trimmedTitle === note.title.trim() &&
       trimmedContent === note.content.trim()
@@ -32,7 +30,6 @@ const NoteModal = ({ note, onClose, onUpdate, onDelete }) => {
       return;
     }
 
-    // Determine what fields actually changed
     const fieldsToUpdate = {};
     if (trimmedTitle !== note.title) fieldsToUpdate.title = trimmedTitle;
     if (trimmedContent !== note.content) fieldsToUpdate.content = trimmedContent;
@@ -66,7 +63,7 @@ const NoteModal = ({ note, onClose, onUpdate, onDelete }) => {
       <div className="modalContent" onClick={(e) => e.stopPropagation()}>
         <button className="closeButton" onClick={onClose}>×</button>
 
-        {/* ---------------- VIEW MODE ---------------- */}
+        {/* VIEW MODE */}
         {!isEditing && (
           <>
             <h2>{note.title}</h2>
@@ -85,7 +82,7 @@ const NoteModal = ({ note, onClose, onUpdate, onDelete }) => {
           </>
         )}
 
-        {/* ---------------- EDIT MODE ---------------- */}
+        {/* EDIT MODE */}
         {isEditing && (
           <div id='editingDiv'>
             <input

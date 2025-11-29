@@ -31,15 +31,13 @@ function Notes() {
         setLoading(false);
     }
 
-    // Update a note in state
     const handleUpdateNote = (updatedNote) => {
         setNotes(prev =>
             prev.map(n => (n.id === updatedNote.id ? updatedNote : n))
         );
-        setSelectedNote(updatedNote); // keep modal open with new data
+        setSelectedNote(updatedNote);
     };
 
-    // Delete a note
     const handleDeleteNote = async (id) => {
         await fetch(`${BASE_URL}/notes/${id}`, { method: "DELETE" });
         setNotes(prev => prev.filter(n => n.id !== id));

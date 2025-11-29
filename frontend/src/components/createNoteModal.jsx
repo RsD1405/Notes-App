@@ -14,7 +14,6 @@ const CreateNoteModal = ({ onClose, onCreate }) => {
     const trimmedTitle = title.trim();
     const trimmedContent = content.trim();
 
-    // ❌ Prevent submitting empty title or content
     if (!trimmedTitle || !trimmedContent) {
       setError("Title and content cannot be empty.");
       return;

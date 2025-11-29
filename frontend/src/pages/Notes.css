@@ -1,10 +1,9 @@
-/* ===== Color System ===== */
 :root {
-  --bg-main: #f5f9ff;               /* light clean background */
+  --bg-main: #f5f9ff;
   --bg-card: #FFFFFF;
   --bg-input: #F5F6F8;
 
-  --accent-primary: #2E3A8C;        /* midnight blue */
+  --accent-primary: #2E3A8C;
   --accent-primary-hover: #232C6D;
 
   --text-strong: #17191C;
@@ -15,13 +14,10 @@
   --shadow: rgba(0, 0, 0, 0.08);
 }
 
-/* ===== Page Layout ===== */
-
 body {
   background-color: var(--bg-main);
 }
 
-/* center the title */
 .pageHeader {
   position: fixed;
   top: 0;
@@ -44,8 +40,6 @@ body {
   text-align: center;
 }
 
-/* ===== Notes Grid ===== */
-
 #notesGridDiv {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -55,8 +49,6 @@ body {
   padding-top: 120px;
   padding-bottom: 80px;
 }
-
-/* ===== Cards ===== */
 
 .notesCard {
   background-color: var(--bg-card);
@@ -89,8 +81,6 @@ body {
   font-size: 0.8rem;
   color: var(--text-muted);
 }
-
-/* ===== Floating Button ===== */
 
 .floatingButton {
   position: fixed;
