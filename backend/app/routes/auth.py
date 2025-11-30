@@ -55,9 +55,26 @@ def login(credentials: UserLogin, session: Session = Depends(get_session)):
 
     session.add(token_obj)
     session.commit()
-    session.refresh(token_obj)
 
     return Token(
         access_token=access_token,
         refresh_token=refresh_token
     )
+
+# Refresh Token
+@router.post("/refresh", response_model=Token)
+def refresh(refresh_token: str, session: Session = Depends(get_session)):
+    payload = decode_token(refresh_token)
+
+    if not payload:
+        raise HTTPException(status_code=401, detail="Invalid Refresh Token")
+    
+    stored = session.exec(select(RefreshToken).where(RefreshToken.token == refresh_token)).first()
+
+    if not stored:
+        raise HTTPException(status_code=401, detail="Token Revoked or Expired")
+    
+    new_access = create_access_token({"sub": payload["sub"]})
+
+    return Token(access_token=new_access)
+
