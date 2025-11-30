@@ -78,3 +78,13 @@ def refresh(refresh_token: str, session: Session = Depends(get_session)):
 
     return Token(access_token=new_access)
 
+# Logout
+@router.post("/logout")
+def logout(refresh_token: str, session: Session = Depends(get_session)):
+    stored = session.exec(select(RefreshToken).where(RefreshToken.token == refresh_token)).first()
+
+    if stored:
+        session.delete(stored)
+        session.commit()
+    
+    return {"Message": "Logged out successfully"}
