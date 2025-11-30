@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session, select
-from datetime import datetime
+from datetime import timedelta
 from typing import Annotated
 
 from app.database import get_session
@@ -36,3 +36,28 @@ def register(user: UserCreate, session: Session = Depends(get_session)):
 
     return new_user
 
+# Login
+@router.post("/login", response_model=Token)
+def login(credentials: UserLogin, session: Session = Depends(get_session)):
+    user = session.exec(select(User).where(User.email == credentials.email)).first()
+
+    if not user or not verify_password(credentials.password, user.hashed_password):
+        raise HTTPException(status_code=401, detail="Invalid Credentials")
+    
+    access_token = create_access_token({"sub": str(user.id)})
+    refresh_token = create_refresh_token({"sub": str(user.id)})
+
+    token_obj = RefreshToken(
+        user_id=user.id,
+        token=refresh_token,
+        expires_at=now_utc() + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
+    )
+
+    session.add(token_obj)
+    session.commit()
+    session.refresh(token_obj)
+
+    return Token(
+        access_token=access_token,
+        refresh_token=refresh_token
+    )
