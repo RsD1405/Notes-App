@@ -1,4 +1,3 @@
-# tests/test_notes.py
 def test_create_note(client, auth_headers):
     response = client.post("/notes/", json={
         "title": "Test Note",

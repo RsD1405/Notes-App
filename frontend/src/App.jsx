@@ -13,7 +13,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/notesTemp' element={<NotesTemp />} />
-        <Route path='/notes' element={<Notes />} />
+        <Route path='/' element={<Notes />} />
       </Routes>
     </BrowserRouter>
   )
